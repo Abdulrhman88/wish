@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap
+        {
+            width: 90%;
+            margin: 0% auto;
+        }
+        .nav
+        {
+            display: flex;
+            justify-content: space-between;
+           
+            
+        }
+        .lefnav
+        {
+            display: flex;
+            justify-content: space-around;
+        }
+        #n1
+        {
+            
+            width: 60px;
+            margin-right: 90px;
+        }
+        table {
+                border-collapse: collapse;
+                width: 100%;
+              }
+              
+              th, td {
+                text-align: left;
+                padding: 8px;
+              }
+              
+              tr:nth-child(even){background-color: #f2f2f2}
+              
+              th {
+                background-color: #5f5d70;
+                color: white;
+              }
+        
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="nav">
+            <div><h1>Helo {{user.fname}}</h1></div>
+
+            <div class="lefnav">
+
+                <div id="n1"><a href="logout">Logout</a></div>
+                <div id="n3"><a href="stats" role="button">View stats </a> ></div>
+                <div id="n2"><a href="newwish" role="button">Make a wish!</a> </div>
+            </div>
+        </div>
+        <hr>
+        <div class="t1">
+           
+            
+              
+            
+              <h2>Your wish list : </h2>
+              
+              <table>
+                <thead>
+                <tr>
+                  <th>item</th>
+                  <th>Date added</th>
+                  <th>Actions</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              {% for wish in your_wish %}
+                <tr>
+                  <td>{{wish.wish}}</td>
+                  <td>{{wish.description}}</td>
+                  <td>
+                    <form action="/" method="POST">
+                        {% csrf_token %}
+                        <a href="/wish/{{wish.id}}/destroy">Remove</a> 
+                        <a href="/wish/{{wish.id}}/edit">Edit</a> |
+                        <a href="/wish/granted/{{wish.id}}">Granted</a> 
+                       
+                    </form>
+                  </td>
+                </tr>
+              {% empty %}
+                  <tr>
+                    <td colspan="3"> No data</td>
+                  </tr>
+              {% endfor %}
+               
+              
+            </tbody>
+              </table>
+
+
+        </div>
+        <div class="t2"></div>
+        <h2>Granted wishes </h2>
+              
+        <table>
+          <tr>
+            <th>item</th>
+            <th>Wisher</th>
+            <th>Date added</th>
+            <th>Date Granted</th>
+            <th>Likes</th>
+            <th>Actions</th>
+          </tr>
+          {% for grant in granted_wishes %}
+          <tr>
+            <td>{{grant.item}}</td>
+            <td>{{grant.user.fname}}</td>
+            <td>{{grant.dateadd}}</td>
+            <td>{{grant.grantedadd}}</td>
+            <td>{{grant.like.all | length}}</td>
+            <td>
+            {% if user in grant.like.all %}
+              <p>You already liked it</p>
+            {% else %}
+              <a href="/wish/{{grant.id}}/like">Like</a>
+            {% endif %}
+            </td>
+
+          </tr>
+          {% endfor %}
+         
+        </tr>
+        </table>
+
+    </div>
+</body>
+</html>

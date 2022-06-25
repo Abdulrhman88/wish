@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap
+        {
+            width: 90%;
+            margin: 0% auto;
+        }
+        .nav
+        {
+            display: flex;
+            justify-content: space-between;
+           
+            
+        }
+        .lefnav
+        {
+            display: flex;
+            justify-content: space-around;
+        }
+        #n1
+        {
+            
+            width: 60px;
+            margin-right: 90px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="nav">
+            <div><h1>Helo {{user.fname}}</h1></div>
+
+            <div class="lefnav">
+
+                
+                <div id="n3"><a href="logout" role="button">Log out</a></div>
+                <div id="n2"><a href="success" role="button">Dashboord</a> </div>
+            </div>
+        </div>
+        <div class="center">
+            <h2>Totoal wihes granted so far for all users : {{granted | length}}</h2>
+            <div><p>Your granted wishes : {{ user.granted_wi.all | length }}</p></div>
+            <div><p>Your pending wishes : {{user.wihes.all | length }}</p></div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>
